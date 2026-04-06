@@ -2,7 +2,7 @@
 
 Implementation of Spiking VGG-16 for CIFAR-10 classification using the SpikingJelly framework, a PyTorch-based deep learning framework for Spiking Neural Networks.
 
-## 🔍 Overview
+## Overview
 
 This project implements a Spiking Neural Network (SNN) based on the VGG-16 architecture, adapted for CIFAR-10 (32×32 images). Unlike traditional Artificial Neural Networks (ANNs) that use continuous activation values, SNNs communicate through discrete spikes over multiple timesteps, mimicking biological neural computation.
 
