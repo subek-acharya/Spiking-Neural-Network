@@ -116,8 +116,5 @@ snn-cifar10/
 
 ## Reference
 
-- [SpikingJelly Documentation](https://spikingjelly.readthedocs.io)
-- [Train Large Scale SNN Tutorial](https://spikingjelly.readthedocs.io/zh_CN/latest/activation_based_en/train_large_scale_snn.html)
-- [Spiking VGG ImageNet Implementation](https://github.com/spikingjelly/spikingjelly)
-- [ANN to SNN Conversion](https://github.com/spikingjelly/spikingjelly)
-- [VGG Paper: Very Deep Convolutional Networks for Large-Scale Image Recognition](https://arxiv.org/abs/1409.1556)
+- [SpikingJelly Documentation](https://spikingjelly.readthedocs.io/zh-cn/latest/tutorials/en/basic_concept.html)
+- [Train Large Scale SNN Tutorial](https://spikingjelly.readthedocs.io/zh-cn/latest/tutorials/en/train_large_scale_snn.html)
