@@ -71,10 +71,12 @@ python main.py
 
 The evaluation script:
 
+```
 Loads the trained model
 Wraps it with SNNWrapper for compatibility with standard evaluation functions
 Evaluates on CIFAR-10 test set
 Extracts correctly classified samples (balanced per class)
+```
 
 ## Project Structure
 ```bash
