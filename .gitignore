@@ -1,0 +1,108 @@
+
+# ============================================
+# CHECKPOINT FILES
+# ============================================
+checkpoint/*
+!checkpoint/.gitkeep
+
+# ============================================
+# DATA FILES
+# ============================================
+data/*
+!data/.gitkeep
+
+# ============================================
+# NUMPY & PYTORCH FILES
+# ============================================
+*.npy
+*.npz
+*.pth
+*.pt
+*.th
+
+# ============================================
+# PYTHON
+# ============================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ============================================
+# VIRTUAL ENVIRONMENT
+# ============================================
+venv/
+env/
+ENV/
+.venv/
+.env/
+
+# ============================================
+# IDE & EDITORS
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+
+# ============================================
+# OS GENERATED FILES
+# ============================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ============================================
+# JUPYTER NOTEBOOK
+# ============================================
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ============================================
+# EXPERIMENT OUTPUTS
+# ============================================
+sample_images/
+outputs/
+logs/
+runs/
+
+# ============================================
+# TEMPORARY & MISC FILES
+# ============================================
+*.tmp
+*.temp
+*.bak
+*.log
+untitled.txt
+
+# ============================================
+# COMPRESSED FILES
+# ============================================
+*.tar.gz
+*.zip
+*.rar
