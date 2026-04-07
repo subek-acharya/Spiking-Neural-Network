@@ -4,6 +4,7 @@
 # ============================================
 checkpoint/*voter*
 !checkpoint/.gitkeep
+!checkpoint/spiking_vgg16_bn_cifar.pth
 
 # ============================================
 # DATA FILES
@@ -16,9 +17,12 @@ data/*
 # ============================================
 *.npy
 *.npz
-*.pth
 *.pt
 *.th
+
+# Ignore all .pth files EXCEPT the CIFAR-10 model
+*.pth
+!spiking_vgg16_bn_cifar.pth
 
 # ============================================
 # PYTHON

@@ -47,7 +47,7 @@ The architecture is adapted from the [SpikingJelly ImageNet VGG](https://github.
 ### Training Model
 
 ```bash
-python train_snn.py
+python train_snn_cifar.py
 ```
 
 ### Training Paramters
@@ -66,7 +66,7 @@ Surrogate Function: ATan
 Evaluate a trained model on clean CIFAR-10 test data:
 
 ```bash
-python main.py
+python evaluate_cifar.py
 ```
 
 The evaluation script:
@@ -80,25 +80,37 @@ Extracts correctly classified samples (balanced per class)
 
 ## Project Structure
 ```bash
-snn-cifar10/
+SNN/
 │
-├── model_architecture/              # Model architecture implementations
-│   ├── __init__.py                  # Package initialization
-│   ├── spiking_vgg_cifar.py         # Spiking VGG for CIFAR-10
-│   └── VGG_cifar.py                 # Original CNN VGG (reference)
+├── model_architecture/                    # Model architecture implementations
+│   ├── __init__.py                        # Package initialization
+│   ├── spiking_vgg_cifar.py               # Spiking VGG for CIFAR-10 (32×32, 10 classes)
+│   ├── spiking_vgg_voter.py               # Spiking VGG for Voter dataset 
+│   └── VGG_cifar.py                       # Original CNN VGG (reference)
 │
-├── checkpoint/                      # Saved model checkpoints
-│   └── spiking_vgg16_bn_cifar.pth   # Trained SNN model
+├── checkpoint/                            # Saved model checkpoints
+│   └── spiking_vgg16_bn_cifar.pth         # Trained SNN model for CIFAR-10
 │
-├── data/                            # Datasets (auto-downloaded)
-│   └── cifar-10-batches-py/         # CIFAR-10 dataset
+├── data/                                  # Datasets
+│   └── cifar-10-batches-py/               # CIFAR-10 dataset (auto-downloaded)
 │
-├── train_snn.py                     # Training script
-├── main.py                          # Evaluation script
-├── utils.py                         # Utility functions and data loaders
-├── requirements.txt                 # Python dependencies
-└── README.md                        # This file
+├── train_snn_cifar.py                     # Training script for CIFAR-10
+├── train_snn_voter.py                     # Training script for Voter
+│
+├── evaluate_cifar.py                      # Evaluation script for CIFAR-10
+├── evaluate_voter.py                      # Evaluation script for Voter
+│
+├── utils.py                               # Shared utility functions and data loaders
+├── requirements.txt                       # Python dependencies
+└── readme.md                              # Project documentation
 ```
+### Voter-Specific Files
+Note: The following files are custom implementations specifically designed for the Voter dataset. They are used to train and evaluate a Spiking Neural Network model on grayscale ballot images (1×40×50) for binary classification.
+| File | Description |
+|------|-------------|
+| `model_architecture/spiking_vgg_voter.py` | Spiking VGG architecture adapted for 1-channel grayscale input (1×40×50) |
+| `train_snn_voter.py` | Training script for Voter dataset |
+| `evaluate_voter.py` | Evaluation script for Voter dataset |
 
 ## Results
 
