@@ -1,6 +1,8 @@
 import torch
+import torch.nn as nn
 import torchvision.transforms as transforms
 from torchvision import datasets
+from torch.utils.data import TensorDataset, DataLoader
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -10,6 +12,85 @@ import time
 import os
 
 import shutil
+
+
+# ------------ Voters specific utils -----------------
+
+def GetVoterValidation(batchSize):
+    valData = torch.load("./data/kaleel_final_dataset_val_OnlyBubbles_Grayscale.pth", weights_only=False)
+    valImages = valData["data"].float()
+    valLabels = valData["binary_labels"].long()
+    
+    valDataset = TensorDataset(valImages, valLabels)
+    valLoader = DataLoader(valDataset, batch_size=batchSize, shuffle=False)
+    return valLoader
+
+def GetVoterTraining(batchSize):
+    trainData = torch.load("./data/kaleel_final_dataset_train_Combined_Grayscale.pth", weights_only=False)
+    # trainData = torch.load("./data/kaleel_final_dataset_train_OnlyBubbles_Grayscale.pth", weights_only=False)
+    trainImages = trainData["data"].float()
+    trainLabels = trainData["binary_labels"].long()
+    
+    trainDataset = TensorDataset(trainImages, trainLabels)
+    trainLoader = DataLoader(trainDataset, batch_size=batchSize, shuffle=True)
+    return trainLoader
+
+
+def GetVoterTrainingBalanced(batchSize, totalSamples, numClasses):
+    # Get all training data (shuffled) with same batchSize
+    fullTrainLoader = GetVoterTraining(batchSize=batchSize)
+    
+    # Collect all shuffled data from batches
+    allImages = []
+    allLabels = []
+    for images, labels in fullTrainLoader:
+        allImages.append(images)
+        allLabels.append(labels)
+    
+    trainImages = torch.cat(allImages, dim=0)
+    trainLabels = torch.cat(allLabels, dim=0)
+    
+    # Calculate samples per class
+    samplesPerClass = totalSamples // numClasses
+    
+    # Get shape of images
+    imgShape = trainImages[0].shape
+    
+    # Initialize tensors for balanced data
+    balancedImages = torch.zeros(totalSamples, imgShape[0], imgShape[1], imgShape[2])
+    balancedLabels = torch.zeros(totalSamples)
+    
+    # Track how many samples we've collected per class
+    classCount = torch.zeros(numClasses)
+    
+    # Collect balanced samples
+    currentIndex = 0
+    for i in range(len(trainLabels)):
+        label = int(trainLabels[i])
+        
+        if classCount[label] < samplesPerClass:
+            balancedImages[currentIndex] = trainImages[i]
+            balancedLabels[currentIndex] = label
+            classCount[label] += 1
+            currentIndex += 1
+        
+        if currentIndex >= totalSamples:
+            break
+    
+    # Verify we got enough samples
+    for c in range(numClasses):
+        if classCount[c] != samplesPerClass:
+            raise ValueError(f"Not enough samples for class {c}. Got {int(classCount[c])}, needed {samplesPerClass}")
+    
+    print(f"Balanced training data: {totalSamples} samples ({samplesPerClass} per class)")
+    
+    # Create dataloader
+    balancedDataset = TensorDataset(balancedImages, balancedLabels.long())
+    balancedLoader = DataLoader(balancedDataset, batch_size=batchSize, shuffle=False)
+    
+    return balancedLoader
+
+# ------------------------------
 
 def GetCIFAR10Training(batchSize=128, shuffle=True, num_workers=2):
     transform_train = transforms.Compose([
