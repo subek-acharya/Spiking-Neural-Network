@@ -7,7 +7,7 @@ from spikingjelly.activation_based import surrogate, neuron, functional
 import os
 import time
 
-from model_architecture.spiking_vgg_voter import spiking_vgg16_voter, spiking_vgg16_bn_voter
+from model_architecture.spiking_vgg_voter import spiking_vgg16_bn_voter
 import utils
 
 # Global variables
@@ -101,7 +101,7 @@ def test(epoch):
         }
         # Create checkpoint directory if it doesn't exist
         os.makedirs('./checkpoint', exist_ok=True)
-        torch.save(state, './checkpoint/spiking_vgg16_voter.pth')
+        torch.save(state, './checkpoint/spiking_vgg16_bn_voter.pth')
         best_acc = acc
 
 

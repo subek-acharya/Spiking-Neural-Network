@@ -26,8 +26,8 @@ def GetVoterValidation(batchSize):
     return valLoader
 
 def GetVoterTraining(batchSize):
-    trainData = torch.load("./data/kaleel_final_dataset_train_Combined_Grayscale.pth", weights_only=False)
-    # trainData = torch.load("./data/kaleel_final_dataset_train_OnlyBubbles_Grayscale.pth", weights_only=False)
+    # trainData = torch.load("./data/kaleel_final_dataset_train_Combined_Grayscale.pth", weights_only=False)
+    trainData = torch.load("./data/kaleel_final_dataset_train_OnlyBubbles_Grayscale.pth", weights_only=False)
     trainImages = trainData["data"].float()
     trainLabels = trainData["binary_labels"].long()
     
