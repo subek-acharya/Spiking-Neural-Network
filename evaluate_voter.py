@@ -34,7 +34,7 @@ class SNNWrapper(nn.Module):
 
 
 def main():
-    modelDir = "./checkpoint/voter/spiking_vgg16_bn_voter.pth"
+    modelDir = "./checkpoint/spiking_vgg16_bn_voter.pth"
 
     # Parameters
     batchSize = 64
