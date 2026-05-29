@@ -1,3 +1,9 @@
+# train_snn_resnet20_voter.py
+
+"""
+Training script for Spiking ResNet-20 V2 on Voter Dataset.
+"""
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -7,7 +13,7 @@ from spikingjelly.activation_based import surrogate, neuron, functional
 import os
 import time
 
-from model_architecture.spiking_vgg_voter import spiking_vgg16_bn_voter
+from model_architecture.spiking_resnet_voter import spiking_resnet20_voter
 import utils
 
 # Global variables
@@ -91,7 +97,7 @@ def test(epoch):
                               % (test_loss/(batch_idx+1), 100.*correct/total, correct, total))
 
     acc = 100.*correct/total
-    if acc > best_acc:
+    if acc >= best_acc:
         print('Saving..')
         state = {
             'model': model.state_dict(),
@@ -101,7 +107,7 @@ def test(epoch):
         }
         # Create checkpoint directory if it doesn't exist
         os.makedirs('./checkpoint', exist_ok=True)
-        torch.save(state, './checkpoint/spiking_vgg16_bn_voter.pth')
+        torch.save(state, './checkpoint/spiking_resnet20_voter.pth')
         best_acc = acc
 
 
@@ -116,7 +122,7 @@ def main():
     T = 4
     batchSize = 64
     learning_rate = 0.01
-    num_epochs = 30
+    num_epochs = 20
     num_classes = 2
     imgH = 40
     imgW = 50
@@ -126,7 +132,7 @@ def main():
 
     # Load Voter Dataset
     print("==> Loading Voter Dataset...")
-    trainloader = utils.GetVoterTraining(batchSize)
+    trainloader = utils.GetVoterTrainingCombined(batchSize)
     testloader = utils.GetVoterValidation(batchSize)
 
     print("==> Testing data loaders...")
@@ -137,9 +143,9 @@ def main():
         break
 
     # ------------- CREATE MODEL ----------------
-    print("==> Building Spiking VGG16-BN for Voter Dataset...")
+    print("==> Building Spiking ResNet-20 for Voter Dataset...")
     
-    model = spiking_vgg16_bn_voter(
+    model = spiking_resnet20_voter(
         imgH=imgH,
         imgW=imgW,
         num_classes=num_classes,
@@ -187,12 +193,12 @@ def main():
     print("\n" + "="*60)
     print("TRAINING COMPLETED!")
     print("="*60)
-    print(f"Model: Spiking VGG16-BN (Voter)")
+    print(f"Model: Spiking ResNet-20 (Voter)")
     print(f"Dataset: Voter (Grayscale {imgH}×{imgW})")
     print(f"Timesteps: {T}")
     print(f"Best accuracy: {best_acc:.2f}%")
     print(f"Training time: {total_training_time/60:.2f} minutes")
-    print(f"Checkpoint: ./checkpoint/spiking_vgg16_bn_voter.pth")
+    print(f"Checkpoint: ./checkpoint/spiking_resnet20_voter.pth")
     print("="*60)
 
 

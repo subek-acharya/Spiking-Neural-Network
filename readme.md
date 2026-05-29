@@ -83,19 +83,22 @@ Extracts correctly classified samples (balanced per class)
 SNN/
 │
 ├── model_architecture/                    # Model architecture implementations
-│   ├── __init__.py                        # Package initialization
 │   ├── spiking_vgg_cifar.py               # Spiking VGG for CIFAR-10 (32×32, 10 classes)
-│   ├── spiking_vgg_voter.py               # Spiking VGG for Voter dataset 
+│   ├── spiking_vgg_voter.py               # Spiking VGG for Voter dataset (1×40×50, 2 classes)
+│   ├── spiking_resnet_voter.py            # Spiking ResNet-20 for Voter dataset (1×40×50, 2 classes)
 │   └── VGG_cifar.py                       # Original CNN VGG (reference)
 │
 ├── checkpoint/                            # Saved model checkpoints
-│   └── spiking_vgg16_bn_cifar.pth         # Trained SNN model for CIFAR-10
+│   ├── spiking_vgg16_bn_cifar.pth         # Trained SNN VGG model for CIFAR-10
+│   ├── spiking_vgg16_bn_voter.pth         # Trained SNN VGG model for Voter
+│   └── spiking_resnet20_voter.pth         # Trained SNN ResNet-20 model for Voter
 │
 ├── data/                                  # Datasets
 │   └── cifar-10-batches-py/               # CIFAR-10 dataset (auto-downloaded)
 │
-├── train_snn_cifar.py                     # Training script for CIFAR-10
-├── train_snn_voter.py                     # Training script for Voter
+├── train_snn_vgg_cifar.py                 # Training script for CIFAR-10 (VGG)
+├── train_snn_vgg_voter.py                 # Training script for Voter (VGG)
+├── train_snn_resnet_voter.py              # Training script for Voter (ResNet-20)
 │
 ├── evaluate_cifar.py                      # Evaluation script for CIFAR-10
 ├── evaluate_voter.py                      # Evaluation script for Voter
@@ -108,9 +111,13 @@ SNN/
 Note: The following files are custom implementations specifically designed for the Voter dataset. They are used to train and evaluate a Spiking Neural Network model on grayscale ballot images (1×40×50) for binary classification.
 | File | Description |
 |------|-------------|
-| `model_architecture/spiking_vgg_voter.py` | Spiking VGG architecture adapted for 1-channel grayscale input (1×40×50) |
-| `train_snn_voter.py` | Training script for Voter dataset |
-| `evaluate_voter.py` | Evaluation script for Voter dataset |
+| `model_architecture/spiking_vgg_voter.py` | Spiking VGG-16 architecture adapted for 1-channel grayscale input (1×40×50) |
+| `model_architecture/spiking_resnet_voter.py` | Spiking ResNet-20 architecture adapted for 1-channel grayscale input (1×40×50) |
+| `train_snn_vgg_voter.py` | Training script for Spiking VGG-16 on Voter dataset |
+| `train_snn_resnet_voter.py` | Training script for Spiking ResNet-20 on Voter dataset |
+| `evaluate_voter.py` | Evaluation script for all Voter SNN models |
+
+
 
 ## Results
 

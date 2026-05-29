@@ -25,8 +25,16 @@ def GetVoterValidation(batchSize):
     valLoader = DataLoader(valDataset, batch_size=batchSize, shuffle=False)
     return valLoader
 
+def GetVoterValidationCombined(batchSize):
+    valData = torch.load("./data/kaleel_final_dataset_val_Combined_Grayscale.pth", weights_only=False)
+    valImages = valData["data"].float()
+    valLabels = valData["binary_labels"].long()
+    
+    valDataset = TensorDataset(valImages, valLabels)
+    valLoader = DataLoader(valDataset, batch_size=batchSize, shuffle=False)
+    return valLoader
+
 def GetVoterTraining(batchSize):
-    # trainData = torch.load("./data/kaleel_final_dataset_train_Combined_Grayscale.pth", weights_only=False)
     trainData = torch.load("./data/kaleel_final_dataset_train_OnlyBubbles_Grayscale.pth", weights_only=False)
     trainImages = trainData["data"].float()
     trainLabels = trainData["binary_labels"].long()
@@ -34,6 +42,16 @@ def GetVoterTraining(batchSize):
     trainDataset = TensorDataset(trainImages, trainLabels)
     trainLoader = DataLoader(trainDataset, batch_size=batchSize, shuffle=True)
     return trainLoader
+
+def GetVoterTrainingCombined(batchSize):
+    trainData = torch.load("./data/kaleel_final_dataset_train_Combined_Grayscale.pth", weights_only=False)
+    trainImages = trainData["data"].float()
+    trainLabels = trainData["binary_labels"].long()
+    
+    trainDataset = TensorDataset(trainImages, trainLabels)
+    trainLoader = DataLoader(trainDataset, batch_size=batchSize, shuffle=True)
+    return trainLoader
+
 
 
 def GetVoterTrainingBalanced(batchSize, totalSamples, numClasses):
